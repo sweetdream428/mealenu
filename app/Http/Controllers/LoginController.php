@@ -32,7 +32,7 @@ class LoginController extends Controller
             return redirect()->intended('/')->with('message', 'Welcome to the website.');
         }
   
-        return back("login")->with('message', 'Login details are not valid');
+        return back()->with('message', 'Login details are not valid');
     }      
 
     public function customRegistration(Request $request)
