@@ -29,7 +29,7 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
-            <div class="content-header row">
+            <div class="content-header row d-flex justify-content-between align-items-center">
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
@@ -47,7 +47,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-md-3 col-12 mb-2">
+                    <button type="button" class="btn-outline-primary btn" id="confirm-text"><i data-feather="heart"></i> USE</button>
+                </div>
             </div>
             <div class="content-body">
                 <section id="nav-tabs-aligned">

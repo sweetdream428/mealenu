@@ -5,6 +5,12 @@
 <!-- BEGIN: Vendor JS-->
 <script src="{{ asset('/app-assets/vendors/js/vendors.min.js')}}"></script>
 <!-- BEGIN Vendor JS-->
+
+ <!-- BEGIN: Page Vendor JS-->
+ <script src="{{ asset('/app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
+ <script src="{{ asset('/app-assets/vendors/js/extensions/polyfill.min.js')}}"></script>
+ <!-- END: Page Vendor JS-->
+
 <!-- JS -->
 <script src="{{ asset('/app-assets/vendors/js/toastr/toastr.min.js')}}"></script>
 <script src="{{ asset('/app-assets/vendors/js/forms/validation/jquery.validate.min.js')}}"></script>
@@ -13,6 +19,11 @@
 <script src="{{asset('/app-assets/js/core/app-menu.js')}}"></script>
 <script src="{{asset('/app-assets/js/core/app.js')}}"></script>
 <!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{{ asset('/app-assets/js/scripts/extensions/ext-component-sweet-alerts.js') }}"></script>
+<!-- END: Page JS-->
+
 <script>
 var isRtl = $('html').attr('data-textdirection') === 'rtl'
 // Set the options that I want

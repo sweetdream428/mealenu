@@ -42,7 +42,7 @@
 
             </div>
             <div class="content-body">
-                  Category             
+                MenuPage       
             </div>
         </div>
     </div>
