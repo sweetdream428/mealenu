@@ -82,16 +82,16 @@
                                         <div class="tab-pane active" id="salads-center"
                                             aria-labelledby="salads-tab-center" role="tabpanel">
                                             <p>
-                                            <h2><input type="text" value="SALADS" class="form-control"></h2>
+                                            <h2>SALADS</h2>
                                             </p>
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <h4><input type="text" value="GRÜNER SALAT" class="form-control"></h4>
-                                                            <p><input type="text" value="Frische Blattsalate" class="form-control"></p>
+                                                            <h4>GRÜNER SALAT</h4>
+                                                            <p>Frische Blattsalate</p>
                                                         </td>
-                                                        <td><input type="number" value="9.50" class="form-control"></td>
+                                                        <td>9.50</td>
                                                     </tr>
                                                     <tr>
                                                         <td>

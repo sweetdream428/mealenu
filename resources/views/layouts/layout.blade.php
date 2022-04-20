@@ -14,8 +14,8 @@
             
             <li class="navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
             </li>
-            {{-- <li class="nav-item {{ URL::current() == route('category.name')?'active' : ''}}"><a class="d-flex align-items-center" href="{{route('category.name')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Category">Category</span></a>
-            </li> --}}
+            <li class="nav-item {{ URL::current() == route('menupage.name')?'active' : ''}}"><a class="d-flex align-items-center" href="{{route('category.name')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Category">Category</span></a>
+            </li>
             
             
         </ul>

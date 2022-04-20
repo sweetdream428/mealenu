@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenupageController;
 use App\Http\Controllers\TemplateController;
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('setting', [LoginController::class, 'settingpage'])->name('setting.page');
     Route::post('change-password/{id}', [LoginController::class, 'changePassword']);
     Route::post('change-profile/{id}', [LoginController::class, 'changeProfile']);
-    Route::get('cagetory', [CategoryController::class, 'index'])->name('category.name');
+    Route::get('menupage', [MenupageController::class, 'index'])->name('menupage.name');
     Route::get('template/{pagename}', [TemplateController::class, 'index']);
 });
 

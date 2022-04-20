@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Exception;
 
 
-class CategoryController extends Controller
+class MenupageController extends Controller
 {
 
     public function index()
     {
-        return view('category.index');
+        return view('menupage.index');
     }  
     
 }
