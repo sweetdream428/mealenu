@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
     // MENU CREATE PAGE
     Route::post('menupage/{pagename}', [MenupageController::class, 'getpageid']);
-    Route::post('menupage/{pagename}/{id}', [MenupageController::class, 'createpage']);
+    Route::get('menupage/{pagename}/{id}', [MenupageController::class, 'createpage']);
 });
 
 //clear cache
