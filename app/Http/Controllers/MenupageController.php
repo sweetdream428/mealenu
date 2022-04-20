@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Page;
 use Exception;
 
 
@@ -17,6 +14,16 @@ class MenupageController extends Controller
     public function index()
     {
         return view('menupage.index');
-    }  
+    }
+    public function createpage($pagename){
+        try{
+            $page = new Page;
+            $page->name = $pagename;
+            $page->save();
+        }
+        catch(Exception $e){
+
+        }
+    }
     
 }

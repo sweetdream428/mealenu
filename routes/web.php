@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::post('change-profile/{id}', [LoginController::class, 'changeProfile']);
     Route::get('menupage', [MenupageController::class, 'index'])->name('menupage.name');
     Route::get('template/{pagename}', [TemplateController::class, 'index']);
+
+    // MENU CREATE PAGE
+    Route::post('menupage/{pagename}', [MenupageController::class, 'createpage']);
 });
 
 //clear cache

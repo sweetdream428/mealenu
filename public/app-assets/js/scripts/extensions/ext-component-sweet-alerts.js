@@ -26,7 +26,7 @@ $(function () {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Yes, I will use This!',
         customClass: {
           confirmButton: 'btn btn-primary',
           cancelButton: 'btn btn-outline-danger ml-1'
@@ -36,12 +36,27 @@ $(function () {
         if (result.value) {
           Swal.fire({
             icon: 'success',
-            title: 'Deleted!',
-            text: 'Your file has been deleted.',
+            title: 'Success!',
+            text: 'You can use this template.',
             customClass: {
               confirmButton: 'btn btn-success'
             }
           });
+          var url = '/menupage/lunch';
+          $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'post',
+            url: url,
+            success: function(data) {
+                if(data['success']){
+                    window.location.href = '/menupage/lunch/' + data['success'];
+                }
+                else{
+                }
+            }
+        });
         }
       });
     });

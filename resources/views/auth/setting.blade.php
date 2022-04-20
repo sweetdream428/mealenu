@@ -211,16 +211,6 @@
 
                 $this.validate({
                     rules: {
-                        // username: {
-                        //     required: true
-                        // },
-                        // name: {
-                        //     required: true
-                        // },
-                        // email: {
-                        //     required: true,
-                        //     email: true
-                        // },
                         password: {
                             required: true
                         },
