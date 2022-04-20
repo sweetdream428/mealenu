@@ -51,7 +51,8 @@ $(function () {
             url: url,
             success: function(data) {
                 if(data['success']){
-                    window.location.href = '/menupage/lunch/' + data['success'];
+                  console.log('success------------>', data['success']);
+                  window.location.href = '/menupage/lunch/' + data['success'];
                 }
                 else{
                 }
