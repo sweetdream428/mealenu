@@ -28,7 +28,7 @@ class MenupageController extends Controller
         }
     }
     public function createpage($pagename, $id){
-        dd($pagename, $id);
+        return view('pages.lunch.index')->with('pagename', $pagename)->with('page_id', $id);
     }
     
 }
