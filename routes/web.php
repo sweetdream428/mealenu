@@ -27,7 +27,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('home');
-    });
+    })->name('home');
     Route::get('setting', [LoginController::class, 'settingpage'])->name('setting.page');
     Route::post('change-password/{id}', [LoginController::class, 'changePassword']);
     Route::post('change-profile/{id}', [LoginController::class, 'changeProfile']);
