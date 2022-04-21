@@ -111,39 +111,43 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="tab-category-1" data-toggle="tab" href="#category-1" aria-controls="category-1" role="tab" aria-selected="true">
-                                                CATEGORY
-                                            </a>
-                                            <i data-feather='edit-2' class="edit-icon-position edit-icon-position-1"></i>
-                                            <i data-feather='x' class="remove-icon-position remove-icon-position-1"></i>
-                                            
-                                        </li>
-                                        <li class="nav-item">
+                                        @foreach ($categories as $category)
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="tab-category-{{$category->id}}" data-toggle="tab" href="#category-{{$category->id}}" aria-controls="category-{{$category->id}}" role="tab" aria-selected="true">
+                                                    {{$category->name}}
+                                                </a>
+                                                <i data-feather='edit-2' class="edit-icon-position edit-icon-position-{{$category->id}}"></i>
+                                                <i data-feather='x' class="remove-icon-position remove-icon-position-{{$category->id}}"></i>
+                                            </li>
+                                        @endforeach
+                                        
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link" id="tab-category-2" data-toggle="tab" href="#category-2" aria-controls="category-2" role="tab" aria-selected="false">STARTER</a>
                                             <i data-feather='edit-2' class="edit-icon-position edit-icon-position-2"></i>
                                             <i data-feather='x' class="remove-icon-position remove-icon-position-2"></i>
-                                        </li>
+                                        </li> --}}
                                         
                                     </ul>
                                     <div class="tab-content mt-3">
-                                        <div class="tab-pane active" id="category-1" aria-labelledby="tab-category-1" role="tabpanel">
-                                            <p>
-                                                <h2>CATEGORY</h2>
-                                            </p>
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h4>GRÜNER SALAT</h4>
-                                                            <p>Frische Blattsalate</p>
-                                                        </td>
-                                                        <td>9.50</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="tab-pane" id="category-2" aria-labelledby="tab-category-2" role="tabpanel">
+                                        
+                                            <div class="tab-pane active" id="category-1" aria-labelledby="tab-category-1" role="tabpanel">
+                                                <p>
+                                                    <h2></h2>
+                                                </p>
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <h4>GRÜNER SALAT</h4>
+                                                                <p>Frische Blattsalate</p>
+                                                            </td>
+                                                            <td>9.50</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        
+                                        {{-- <div class="tab-pane" id="category-2" aria-labelledby="tab-category-2" role="tabpanel">
                                             <p>
                                             <h2>STARTER</h2>
                                             </p>
@@ -165,15 +169,13 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> --}}
                                         
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Centered Aligned Tabs ends -->
-
-
                     </div>
                 </section>
             </div>
@@ -187,14 +189,33 @@
     @include('layouts.footer')
     <script>
         '@if (session()->has('message'))<div class="alert alert-success">' + toastr["success"]("{{ session()->get('message') }}") + '</div>@endif';
-        var id = 0;
+        
         $('.category-create-modal').on('submit', function(e){
             var category_text = $('.category-text').val();
-            console.log(category_text);
             $('.category-modal-close').click();
-            $('.nav-tabs').append("<li class='nav-item'><a class='nav-link' id='tab-"+id+"' data-toggle='tab' href='#category-"+id+"' aria-controls='category-"+id+"' role='tab' aria-selected='false'>"+category_text+"</a><i data-feather='edit-2' class='edit-icon-position'></i><i data-feather='x' class='remove-icon-position'></i></li>");
-            $('.tab-content').append("<div class='tab-pane' id='category-"+id+"' aria-labelledby='tab-category-"+id+"' role='tabpanel'><p><h2>"+category_text+"</h2></p><table class='table'><tbody></tbody></table></div>");
-            id = id + 1;
+            var url = '{{route('category.create')}}';
+            var page_id = '{{$page_id}}';
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: url,
+                data: {name : category_text, page_id : page_id},
+                success: function(data) {
+                    if(data['success']){
+                        var id = data['success'];
+                        $('.nav-tabs').append("<li class='nav-item'><a class='nav-link' id='tab-category-"+id+"' data-toggle='tab' href='#category-"+id+"' aria-controls='category-"+id+"' role='tab' aria-selected='false'>"+category_text+"</a><i data-feather='edit-2' class='edit-icon-position'></i><i data-feather='x' class='remove-icon-position'></i></li>");
+
+                        $('.tab-content').append("<div class='tab-pane' id='category-"+id+"' aria-labelledby='tab-category-"+id+"' role='tabpanel'><p><h2>"+category_text+"</h2></p><table class='table'><tbody></tbody></table></div>");
+                    }
+                    else{
+                        
+                    }
+                }
+            });
+            
         });
 
     </script>
