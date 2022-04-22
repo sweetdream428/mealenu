@@ -113,64 +113,34 @@
                                         </div>
                                         @foreach ($categories as $category)
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="tab-category-{{$category->id}}" data-toggle="tab" href="#category-{{$category->id}}" aria-controls="category-{{$category->id}}" role="tab" aria-selected="true">
+                                                <a class="nav-link {{$category->id == $firstid ? 'active' : ''}}" id="tab-category-{{$category->id}}" data-toggle="tab" href="#category-{{$category->id}}" aria-controls="category-{{$category->id}}" role="tab" aria-selected="true">
                                                     {{$category->name}}
                                                 </a>
-                                                <i data-feather='edit-2' class="edit-icon-position edit-icon-position-{{$category->id}}"></i>
-                                                <i data-feather='x' class="remove-icon-position remove-icon-position-{{$category->id}}"></i>
+                                                <i data-feather='edit-2' class="edit-icon-position" data-id="{{$category->id}}"></i>
+                                                <i data-feather='x' class="remove-icon-position" data-id="{{$category->id}}"></i>
                                             </li>
                                         @endforeach
                                         
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link" id="tab-category-2" data-toggle="tab" href="#category-2" aria-controls="category-2" role="tab" aria-selected="false">STARTER</a>
-                                            <i data-feather='edit-2' class="edit-icon-position edit-icon-position-2"></i>
-                                            <i data-feather='x' class="remove-icon-position remove-icon-position-2"></i>
-                                        </li> --}}
-                                        
                                     </ul>
                                     <div class="tab-content mt-3">
-                                        
-                                            <div class="tab-pane active" id="category-1" aria-labelledby="tab-category-1" role="tabpanel">
+                                        @foreach ($categories as $category)
+                                            <div class="tab-pane {{$category->id == $firstid ?'active' : ''}}" id="category-{{$category->id}}" aria-labelledby="tab-category-{{$category->id}}" role="tabpanel">
                                                 <p>
-                                                    <h2></h2>
+                                                    <h2>{{$category->name}}</h2>
                                                 </p>
                                                 <table class="table">
                                                     <tbody>
                                                         <tr>
                                                             <td>
-                                                                <h4>GRÜNER SALAT</h4>
-                                                                <p>Frische Blattsalate</p>
+                                                                <h4></h4>
+                                                                <p></p>
                                                             </td>
-                                                            <td>9.50</td>
+                                                            <td></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        
-                                        {{-- <div class="tab-pane" id="category-2" aria-labelledby="tab-category-2" role="tabpanel">
-                                            <p>
-                                            <h2>STARTER</h2>
-                                            </p>
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h4>CONSOMMÉ MIT SHERRY</h4>
-                                                            <p>Eine Suppe für den Feinschmecker</p>
-                                                        </td>
-                                                        <td>10.50</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4>TOMATENCRÈMESUPPE</h4>
-                                                            <p>Mit Basilikum und Rahmhäubchen</p>
-                                                        </td>
-                                                        <td>11.50</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> --}}
-                                        
+                                        @endforeach                                        
                                     </div>
                                 </div>
                             </div>
@@ -216,6 +186,11 @@
                 }
             });
             
+        });
+
+        $(document).on('click', '.edit-icon-position', function(e){
+            var dataid = $(this).data('id');
+            console.log('dataid', dataid);
         });
 
     </script>

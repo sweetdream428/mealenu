@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Category;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 
 class MenupageController extends Controller
@@ -30,8 +31,11 @@ class MenupageController extends Controller
     }
     public function createpage($pagename, $id){
         $categories = Category::where('page_id', $id)->get();
+        $firstids = DB::table('categories')->where('page_id', $id)->orderBy('id')->get('id')->count() ? DB::table('categories')->where('page_id', $id)->orderBy('id')->get('id') : '';
         
-        return view('pages.lunch.index')->with('pagename', $pagename)->with('page_id', $id)->with('categories', $categories);
+        $firstid = $firstids ? $firstids[0]->id : '';
+        
+        return view('pages.lunch.index')->with('pagename', $pagename)->with('page_id', $id)->with('categories', $categories)->with('firstid', $firstid);
     }
 
     public function categorycreate(Request $request){
