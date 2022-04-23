@@ -15,7 +15,8 @@ class MenupageController extends Controller
 
     public function index()
     {
-        return view('menupage.index');
+        $pages = Page::get();
+        return view('menupage.index')->with('pages', $pages);
     }
     public function getpageid($pagename){
         try{

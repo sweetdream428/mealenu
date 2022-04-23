@@ -82,7 +82,7 @@
                                         <div>
                                             <div class="form-modal-ex">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#inlineForm">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inlineForm">
                                                     Add
                                                 </button>
                                                 <!-- Modal -->
@@ -127,6 +127,7 @@
                                             <div class="tab-pane {{$category->id == $firstid ?'active' : ''}}" id="category-{{$category->id}}" aria-labelledby="tab-category-{{$category->id}}" role="tabpanel">
                                                 <p>
                                                     <h2>{{$category->name}}</h2>
+                                                    <button type="button" class="btn btn-primary">Add</button>
                                                 </p>
                                                 <table class="table">
                                                     <tbody>
