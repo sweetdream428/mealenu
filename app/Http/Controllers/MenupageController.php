@@ -129,5 +129,9 @@ class MenupageController extends Controller
             return response()->json(['success'=>false]);
         }
     }
+
+    public function pageview($pagename, $id){
+        return view('mainpages.'.$pagename.'.index');
+    }
     
 }

@@ -74,6 +74,9 @@
                                                         <a class="menu-remove-btn btn" data-id="{{$page->id}}">
                                                             <i data-feather='delete'></i>
                                                         </a>
+                                                        <a href="/page/lunch/{{$page->id}}" class="menu-view-btn btn" data-id="{{$page->id}}">
+                                                            <i data-feather='eye'></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

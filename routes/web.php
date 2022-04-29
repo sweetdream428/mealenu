@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::post('content-create', [MenupageController::class, 'contentcreate'])->name('content.create');
     Route::post('content-update', [MenupageController::class, 'contentupdate'])->name('content.update');
     Route::post('content-remove', [MenupageController::class, 'contentremove'])->name('content.remove');
+
+    Route::get('page/{pagename}/{id}', [MenupageController::class, 'pageview']);
 });
 
 //clear cache
