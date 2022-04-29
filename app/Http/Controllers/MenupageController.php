@@ -131,7 +131,11 @@ class MenupageController extends Controller
     }
 
     public function pageview($pagename, $id){
-        return view('mainpages.'.$pagename.'.index');
+        $categories = Category::where('page_id', $id)->get();
+        $firstids = DB::table('categories')->where('page_id', $id)->orderBy('id')->get('id')->count() ? DB::table('categories')->where('page_id', $id)->orderBy('id')->get('id') : '';
+        
+        $firstid = $firstids ? $firstids[0]->id : '';
+        return view('mainpages.'.$pagename.'.index')->with('categories', $categories)->with('firstid', $firstid);
     }
     
 }
