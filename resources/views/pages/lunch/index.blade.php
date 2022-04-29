@@ -82,15 +82,15 @@
                                         <div>
                                             <div class="form-modal-ex">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inlineForm">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-category-form">
                                                     Add
                                                 </button>
                                                 <!-- Modal -->
-                                                <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+                                                <div class="modal fade text-left" id="create-category-form" tabindex="-1" role="dialog" aria-labelledby="create-category" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="myModalLabel33">Category</h4>
+                                                                <h4 class="modal-title" id="create-category">Category</h4>
                                                                 <button type="button" class="close category-modal-close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -116,7 +116,7 @@
                                                 <a class="nav-link {{$category->id == $firstid ? 'active' : ''}}" id="tab-category-{{$category->id}}" data-toggle="tab" href="#category-{{$category->id}}" aria-controls="category-{{$category->id}}" role="tab" aria-selected="true">
                                                     {{$category->name}}
                                                 </a>
-                                                <i data-feather='edit-2' class="edit-icon-position" data-id="{{$category->id}}"></i>
+                                                <i data-feather='edit-2' class="edit-icon-position" data-id="{{$category->id}}" data-name="{{$category->name}}"></i>
                                                 <i data-feather='x' class="remove-icon-position" data-id="{{$category->id}}"></i>
                                             </li>
                                         @endforeach
@@ -153,6 +153,29 @@
         </div>
     </div>
     <!-- END: Content-->
+    <div class="modal fade text-left" id="update-category-form" tabindex="-1" role="dialog" aria-labelledby="update-category" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="update-category">Update Category</h4>
+                    <button type="button" class="close category-modal-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#" class="category-update-modal">
+                    <div class="modal-body">
+                        <label>Category Name: </label>
+                        <div class="form-group">
+                            <input type="text" placeholder="Category" id="u-category" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-update-category">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
@@ -177,21 +200,94 @@
                 success: function(data) {
                     if(data['success']){
                         var id = data['success'];
-                        $('.nav-tabs').append("<li class='nav-item'><a class='nav-link' id='tab-category-"+id+"' data-toggle='tab' href='#category-"+id+"' aria-controls='category-"+id+"' role='tab' aria-selected='false'>"+category_text+"</a><i data-feather='edit-2' class='edit-icon-position'></i><i data-feather='x' class='remove-icon-position'></i></li>");
-
-                        $('.tab-content').append("<div class='tab-pane' id='category-"+id+"' aria-labelledby='tab-category-"+id+"' role='tabpanel'><p><h2>"+category_text+"</h2></p><table class='table'><tbody></tbody></table></div>");
+                        $('.nav-tabs').append("<li class='nav-item'><a class='nav-link' id='tab-category-"+id+"' data-toggle='tab' href='#category-"+id+"' aria-controls='category-"+id+"' role='tab' aria-selected='false'>"+category_text+"</a><i data-feather='edit-2' class='edit-icon-position' data-id="+id+" data-name="+category_text+"></i><i data-feather='x' class='remove-icon-position' data-id="+id+"></i></li>");
+                        
+                        $('.tab-content').append("<div class='tab-pane' id='category-"+id+"' aria-labelledby='tab-category-"+id+"' role='tabpanel'><p><h2>"+category_text+"</h2><button type='button' class='btn btn-primary'>Add</button></p><table class='table'><tbody></tbody></table></div>");
+                        feather.replace();
                     }
                     else{
                         
                     }
                 }
             });
-            
         });
 
         $(document).on('click', '.edit-icon-position', function(e){
             var dataid = $(this).data('id');
-            console.log('dataid', dataid);
+            var name = $(this).data('name');
+            
+            $('#u-category').val(name);
+            $('#update-category-form').modal('show');
+            
+            $('.category-update-modal').on('submit', function(e){
+                var category_text = $('#u-category').val();
+                $('.category-modal-close').click();
+                var url = '{{route('category.update')}}';
+                var id = dataid;
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: url,
+                    data: {name : category_text, id : id},
+                    success: function(data) {
+                        if(data['success']){
+                            $('#tab-category-'+id).text(category_text);
+                        }
+                        else{
+                            
+                        }
+                    }
+                });
+                
+            });
+
+        });
+
+        $(document).on('click', '.remove-icon-position', function(e){
+            var id = $(this).data('id');
+           
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, I will remove This!',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-outline-danger ml-1'
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Successfully removed',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                });
+                    var url = '{{route("category.remove")}}';
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        url: url,
+                        data: {id : id},
+                        success: function(data) {
+                            if(data['success']){
+                                location.reload();
+                            }
+                            else{
+                            }
+                        }
+                    });
+                }
+            });
         });
 
     </script>

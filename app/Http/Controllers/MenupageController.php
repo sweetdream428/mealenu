@@ -39,6 +39,16 @@ class MenupageController extends Controller
         return view('pages.lunch.index')->with('pagename', $pagename)->with('page_id', $id)->with('categories', $categories)->with('firstid', $firstid);
     }
 
+    public function pageremove($id){
+        try{
+            Page::where('id', $id)->delete();
+            return response()->json(['success'=>true]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
     public function categorycreate(Request $request){
         try{
             $category = new Category;
@@ -47,6 +57,30 @@ class MenupageController extends Controller
             $category->save();
             $id = $category->id;
             return response()->json(['success'=>$id]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
+    public function categoryupdate(Request $request){
+        try{
+            $id = $request->id;
+            Category::where('id', $id)->update([
+                'name' => $request->name
+            ]);
+            return response()->json(['success'=>true]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
+    public function categoryremove(Request $request){
+        try{
+            $id = $request->id;
+            Category::where('id', $id)->delete();
+            return response()->json(['success'=>true]);
         }
         catch(Exception $e){
             return response()->json(['success'=>false]);

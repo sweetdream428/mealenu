@@ -4,7 +4,7 @@
 @section('title', 'Home')
 
 <style>
-
+    
 </style>
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
     data-menu="vertical-menu-modern" data-col="">
@@ -47,14 +47,14 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header border-bottom">
-                                    <h4 class="card-title">Ajax Sourced Server-side</h4>
+                                    <h4 class="card-title">Menu list</h4>
                                 </div>
                                 <div class="card-datatable">
                                     
-                                    <table class="datatables-ajax table">
+                                    <table class="datatables-basic table">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
+                                                <th>Date</th>
                                                 <th>Theme Name</th>
                                                 <th>Action</th>
                                             </tr>
@@ -65,9 +65,16 @@
                                             @endphp
                                             @foreach ($pages as $page)
                                                 <tr>
-                                                    <td><?php echo($counter++); ?></td>
+                                                    <td>{{$page->updated_at}}</td>
                                                     <td>{{$page->name}}</td>
-                                                    <td></td>
+                                                    <td>
+                                                        <a href="menupage/lunch/{{$page->id}}?#" class="btn menu-edit-btn">
+                                                            <i data-feather='edit'></i>
+                                                        </a>
+                                                        <a class="menu-remove-btn btn" data-id="{{$page->id}}">
+                                                            <i data-feather='delete'></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -88,7 +95,7 @@
 
     @include('layouts.footer')
     <!-- BEGIN: Page JS-->
-    <script src="{{ asset('/app-assets/js/scripts/tables/table-datatables-advanced.js') }}"></script>
+    <script src="{{ asset('/app-assets/js/scripts/tables/table-datatables-menupage.js') }}"></script>
     <!-- END: Page JS-->
     <script>
         '@if (session()->has('message'))<div class="alert alert-success">' + toastr["success"]("{{ session()->get('message') }}") + '</div> @endif'
