@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\Category;
+use App\Models\Content;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -80,6 +81,48 @@ class MenupageController extends Controller
         try{
             $id = $request->id;
             Category::where('id', $id)->delete();
+            return response()->json(['success'=>true]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
+    public function contentcreate(Request $request){
+        try{
+            $content = new Content;
+            $content->category_id = $request->category_id;
+            $content->title = $request->title;
+            $content->description = $request->description;
+            $content->number = $request->number;
+            $content->save();
+            $id = $content->id;
+            return response()->json(['success'=>$id]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
+    public function contentupdate(Request $request){
+        try{
+            $id = $request->id;
+            Content::where('id', $id)->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'number' => $request->number
+            ]);
+            return response()->json(['success'=>true]);
+        }
+        catch(Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+
+    public function contentremove(Request $request){
+        try{
+            $id = $request->id;
+            Content::where('id', $id)->delete();
             return response()->json(['success'=>true]);
         }
         catch(Exception $e){
